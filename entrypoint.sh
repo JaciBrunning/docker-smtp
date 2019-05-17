@@ -2,7 +2,7 @@
 set -e
 
 postconf -e myhostname=$DOMAIN
-postconf -e mynetworks=0.0.0.0/0  # Note: don't expose port 25 to the outside world!
+postconf -e mynetworks=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
 
 # OpenDKIM
 postconf -e milter_protocol=2
