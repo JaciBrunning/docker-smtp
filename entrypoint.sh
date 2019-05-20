@@ -5,7 +5,6 @@ postconf -e myhostname=$DOMAIN
 postconf -e mynetworks=127.0.0.0/8,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
 
 # OpenDKIM
-if [ -f /dkim/mail.private ]; then
 postconf -e milter_protocol=2
 postconf -e milter_default_action=accept
 postconf -e smtpd_milters=inet:localhost:12301
@@ -38,8 +37,11 @@ Socket                  inet:12301@localhost
 EOF
 
 cat > /etc/opendkim/TrustedHosts <<EOF
-127.0.0.1
 localhost
+127.0.0.0/8
+10.0.0.0/8
+172.16.0.0/12
+192.168.0.0/16
 
 *.$DOMAIN
 EOF
@@ -61,8 +63,8 @@ EOF
 chown opendkim:opendkim /opendkim.private
 chmod 440 /opendkim.private
 
+mkdir -p /var/run/opendkim
 opendkim
-fi
 
 # Cyrus-SASL
 postconf -e smtpd_sasl_auth_enable=yes
