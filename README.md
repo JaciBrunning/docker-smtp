@@ -2,8 +2,6 @@
 
 A simple docker image containing the Postfix SMTP server, and OpenDKIM, designed to take TLS SSL certs from a Traefik Load Balancer, with the configuration stored in etcd.
 
-This doesn't contain any auth, since it should only be sending emails from the internal docker network it's bound to.
-
 ## Environment
 `DOMAIN`: The domain to send from
 `ETCD`: The etcd host and port (e.g. `etcd:2379`)
